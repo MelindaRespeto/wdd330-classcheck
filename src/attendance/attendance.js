@@ -1,14 +1,20 @@
-import "../style.css";
 import { fetchRoster } from "../js/roster.mjs";
+import { saveAttendance, loadAttendance, getTodayDateString } from "../js/attendanceStorage.mjs";
+import "../style.css";
 
-const attendanceState = {}; // { studentId: status }
+const today = getTodayDateString();
+let attendanceState = {};
 
 async function init() {
   const students = await fetchRoster();
 
+  // Load any previously saved attendance for today
+  attendanceState = loadAttendance(today);
+
   const app = document.querySelector("#app");
   app.innerHTML = `
     <h1>Take Attendance</h1>
+    <p>${today}</p>
     <ul id="attendance-list"></ul>
     <button id="save-btn">Save Attendance</button>
   `;
@@ -25,9 +31,15 @@ async function init() {
       <button data-id="${student.id}" data-status="Late">L</button>
     `;
     list.appendChild(item);
+
+    // If this student already has a saved status, highlight the right button
+    const savedStatus = attendanceState[student.id];
+    if (savedStatus) {
+      const btn = item.querySelector(`button[data-status="${savedStatus}"]`);
+      if (btn) btn.classList.add("active");
+    }
   });
 
-  // Handle clicks on any P/A/L button
   list.addEventListener("click", (event) => {
     const btn = event.target.closest("button");
     if (!btn) return;
@@ -35,15 +47,14 @@ async function init() {
     const { id, status } = btn.dataset;
     attendanceState[id] = status;
 
-    // Reset all buttons in this row, then highlight the clicked one
     const row = btn.closest("li");
     row.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
   });
 
   document.querySelector("#save-btn").addEventListener("click", () => {
-    console.log("Attendance to save:", attendanceState);
-    alert("Attendance recorded (check console for now)");
+    saveAttendance(today, attendanceState);
+    alert("Attendance saved!");
   });
 }
 
