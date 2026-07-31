@@ -40,8 +40,7 @@ async function init() {
     const item = document.createElement("li");
     item.innerHTML = `
       <img src="${student.photo}" alt="${student.name}" width="40" height="40" />
-  <a href="./src/student-detail/index.html?id=${student.id}">${student.name}</a> — <strong>${status}</strong>
-    `;
+  <a href="./src/student-detail/index.html?id=${student.id}">${student.name}</a> — <strong class="${status.toLowerCase().replace(/\s+/g, "-")}">${status}</strong>
     list.appendChild(item);
   });
 }
