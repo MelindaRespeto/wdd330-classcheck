@@ -12,7 +12,10 @@ async function init() {
 
   const app = document.querySelector("#app");
   app.innerHTML = `
-    <a href="${BASE}">← Back to Dashboard</a>
+    <nav class="page-nav">
+      <a href="${BASE}">Dashboard</a> |
+      <a href="${BASE}src/student-detail/">Student Detail</a>
+    </nav>
     <h1>Take Attendance</h1>
     <p>${today}</p>
     <ul id="attendance-list"></ul>
@@ -53,7 +56,13 @@ async function init() {
 
   document.querySelector("#save-btn").addEventListener("click", () => {
     saveAttendance(today, attendanceState);
-    alert("Attendance saved!");
+
+    const confirmation = document.createElement("div");
+    confirmation.className = "save-confirmation";
+    confirmation.textContent = "Attendance saved!";
+    document.querySelector("#app").appendChild(confirmation);
+
+    setTimeout(() => confirmation.remove(), 2000);
   });
 }
 

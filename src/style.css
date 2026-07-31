@@ -8,9 +8,11 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background: #f4f7fb;
+  background: linear-gradient(135deg, #0c5649 0%, #445265 50%, #eaf3ff 100%);
+  background-attachment: fixed;
   color: #333;
   line-height: 1.6;
+  min-height: 100vh;
 }
 
 #app {
@@ -35,6 +37,26 @@ h1 {
 h2 {
   color: #34495e;
   margin: 2rem 0 1rem;
+}
+
+/* ==========================
+   Page Navigation
+========================== */
+
+.page-nav {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.page-nav a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 8px;
+}
+
+.page-nav a:hover {
+  text-decoration: underline;
 }
 
 /* ==========================
@@ -188,6 +210,46 @@ button.active {
   background-color: #28a745;
   color: white;
   border-color: #28a745;
+}
+
+/* ==========================
+   Save Confirmation Toast
+========================== */
+
+.save-confirmation {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeInUp 0.3s ease, fadeOut 0.3s ease 1.7s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 /* ==========================

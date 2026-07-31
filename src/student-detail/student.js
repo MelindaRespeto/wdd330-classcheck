@@ -13,8 +13,15 @@ async function init() {
 
     const app = document.querySelector("#app");
 
+    const nav = `
+    <nav class="page-nav">
+      <a href="${BASE}">Dashboard</a> |
+      <a href="${BASE}src/attendance/">Take Attendance</a>
+    </nav>
+  `;
+
     if (!student) {
-        app.innerHTML = `<p>Student not found. <a href="${BASE}">Back to dashboard</a></p>`;
+        app.innerHTML = `${nav}<p>Student not found.</p>`;
         return;
     }
 
@@ -25,7 +32,7 @@ async function init() {
         : 0;
 
     app.innerHTML = `
-    <a href="${BASE}">← Back to dashboard</a>
+    ${nav}
     <h1>${student.name}</h1>
     <img src="${student.photo}" width="80" height="80" alt="${student.name}" />
     <p><strong>Attendance rate:</strong> ${percentage}%</p>
