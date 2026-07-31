@@ -2,17 +2,17 @@ import { fetchRoster } from "../js/roster.mjs";
 import { saveAttendance, loadAttendance, getTodayDateString } from "../js/attendanceStorage.mjs";
 import "../style.css";
 
+const BASE = import.meta.env.BASE_URL;
 const today = getTodayDateString();
 let attendanceState = {};
 
 async function init() {
   const students = await fetchRoster();
-
-  // Load any previously saved attendance for today
   attendanceState = loadAttendance(today);
 
   const app = document.querySelector("#app");
   app.innerHTML = `
+    <a href="${BASE}">← Back to Dashboard</a>
     <h1>Take Attendance</h1>
     <p>${today}</p>
     <ul id="attendance-list"></ul>
@@ -32,7 +32,6 @@ async function init() {
     `;
     list.appendChild(item);
 
-    // If this student already has a saved status, highlight the right button
     const savedStatus = attendanceState[student.id];
     if (savedStatus) {
       const btn = item.querySelector(`button[data-status="${savedStatus}"]`);

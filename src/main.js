@@ -1,11 +1,15 @@
 import { fetchRoster } from "./js/roster.mjs";
 import { loadAttendance, getTodayDateString } from "./js/attendanceStorage.mjs";
+import { isSchoolHoliday } from "./js/holidays.mjs";
 import "./style.css";
+
+const BASE = import.meta.env.BASE_URL;
 
 async function init() {
   const students = await fetchRoster();
   const today = getTodayDateString();
   const attendanceState = loadAttendance(today);
+  const holidayName = await isSchoolHoliday(today);
 
   let presentCount = 0;
   let absentCount = 0;
@@ -21,7 +25,9 @@ async function init() {
   const app = document.querySelector("#app");
   app.innerHTML = `
     <h1>ClassCheck</h1>
+    <a href="${BASE}src/attendance/">Take Attendance →</a>
     <p>${today}</p>
+    ${holidayName ? `<p class="holiday-banner">No school today — ${holidayName}</p>` : ""}
 
     <div class="summary-cards">
       <div class="card"><h3>Present</h3><p>${presentCount}</p></div>
@@ -40,7 +46,8 @@ async function init() {
     const item = document.createElement("li");
     item.innerHTML = `
       <img src="${student.photo}" alt="${student.name}" width="40" height="40" />
-  <a href="./src/student-detail/index.html?id=${student.id}">${student.name}</a> — <strong class="${status.toLowerCase().replace(/\s+/g, "-")}">${status}</strong>
+      <a href="${BASE}src/student-detail/?id=${student.id}">${student.name}</a> — <strong>${status}</strong>
+    `;
     list.appendChild(item);
   });
 }

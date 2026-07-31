@@ -2,6 +2,8 @@ import { fetchRoster } from "../js/roster.mjs";
 import { getAllAttendanceForStudent } from "../js/attendanceStorage.mjs";
 import "../style.css";
 
+const BASE = import.meta.env.BASE_URL;
+
 async function init() {
     const params = new URLSearchParams(window.location.search);
     const studentId = params.get("id");
@@ -12,7 +14,7 @@ async function init() {
     const app = document.querySelector("#app");
 
     if (!student) {
-        app.innerHTML = `<p>Student not found. <a href="/">Back to dashboard</a></p>`;
+        app.innerHTML = `<p>Student not found. <a href="${BASE}">Back to dashboard</a></p>`;
         return;
     }
 
@@ -23,7 +25,7 @@ async function init() {
         : 0;
 
     app.innerHTML = `
-    <a href="/">← Back to dashboard</a>
+    <a href="${BASE}">← Back to dashboard</a>
     <h1>${student.name}</h1>
     <img src="${student.photo}" width="80" height="80" alt="${student.name}" />
     <p><strong>Attendance rate:</strong> ${percentage}%</p>
