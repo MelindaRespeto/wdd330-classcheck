@@ -25,7 +25,7 @@ async function init() {
   const app = document.querySelector("#app");
   app.innerHTML = `
     <h1>ClassCheck</h1>
-    <a href="${BASE}src/attendance/">Take Attendance →</a>
+    <a href="${BASE}attendance.html">Take Attendance →</a>
     <p>${today}</p>
     ${holidayName ? `<p class="holiday-banner">No school today — ${holidayName}</p>` : ""}
 
@@ -46,7 +46,7 @@ async function init() {
     const item = document.createElement("li");
     item.innerHTML = `
       <img src="${student.photo}" alt="${student.name}" width="40" height="40" />
-      <a href="${BASE}src/student-detail/?id=${student.id}">${student.name}</a> — <strong>${status}</strong>
+      <a href="${BASE}student.html?id=${student.id}">${student.name}</a> — <strong>${status}</strong>
     `;
     list.appendChild(item);
   });
