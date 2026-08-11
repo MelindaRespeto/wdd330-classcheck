@@ -1,7 +1,7 @@
 import{a as e,i as t,n,r}from"./style-CXyhBbMl.js";var i=`/wdd330-classcheck/`,a=n(),o={};async function s(){let n=await e();o=r(a);let s=document.querySelector(`#app`);s.innerHTML=`
     <nav class="page-nav">
       <a href="${i}">Dashboard</a> |
-      <a href="${i}src/student-detail/">Student Detail</a>
+      <a href="${i}student.html">Student Detail</a>
     </nav>
     <h1>Take Attendance</h1>
     <p>${a}</p>
