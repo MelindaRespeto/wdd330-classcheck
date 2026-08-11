@@ -16,7 +16,7 @@ async function init() {
     const nav = `
     <nav class="page-nav">
       <a href="${BASE}">Dashboard</a> |
-      <a href="${BASE}src/attendance/">Take Attendance</a>
+      <a href="${BASE}attendance.html">Take Attendance</a>
     </nav>
   `;
 

@@ -14,7 +14,7 @@ async function init() {
   app.innerHTML = `
     <nav class="page-nav">
       <a href="${BASE}">Dashboard</a> |
-      <a href="${BASE}src/student-detail/">Student Detail</a>
+      <a href="${BASE}student.html">Student Detail</a>
     </nav>
     <h1>Take Attendance</h1>
     <p>${today}</p>
