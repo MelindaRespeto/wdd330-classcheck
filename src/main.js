@@ -1,16 +1,26 @@
+// main.js
+// Entry point for the ClassCheck dashboard (index.html).
+// Fetches the class roster, loads today's saved attendance state,
+// checks whether today is a school holiday, and renders the summary
+// cards and roster list into the page.
+
 import { fetchRoster } from "./js/roster.mjs";
 import { loadAttendance, getTodayDateString } from "./js/attendanceStorage.mjs";
 import { isSchoolHoliday } from "./js/holidays.mjs";
 import "./style.css";
 
+// Vite injects the correct base path (e.g. "/wdd330-classcheck/") so links
+// work both locally and once deployed to GitHub Pages.
 const BASE = import.meta.env.BASE_URL;
 
 async function init() {
+  // Load roster (RandomUser API), today's saved attendance, and holiday status
   const students = await fetchRoster();
   const today = getTodayDateString();
   const attendanceState = loadAttendance(today);
   const holidayName = await isSchoolHoliday(today);
 
+  // Tally up how many students are marked Present/Absent/Late today
   let presentCount = 0;
   let absentCount = 0;
   let lateCount = 0;
@@ -22,6 +32,8 @@ async function init() {
     if (status === "Late") lateCount++;
   });
 
+  // Render the page shell: title, attendance link, date, holiday banner
+  // (if applicable), and the summary count cards
   const app = document.querySelector("#app");
   app.innerHTML = `
     <h1>ClassCheck</h1>
@@ -39,6 +51,8 @@ async function init() {
     <ul id="roster-list"></ul>
   `;
 
+  // Render each student as a roster row with photo, link to their detail
+  // page, and their current attendance status for today
   const list = document.querySelector("#roster-list");
 
   students.forEach((student) => {
